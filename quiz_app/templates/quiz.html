@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズアプリ</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>クイズに挑戦！</h1>
+        <form action="/submit" method="POST">
+            <input type="hidden" name="question_index" value="{{ question_index }}">
+            <div class="question">
+                <p>{{ quiz.id }}. {{ quiz.question }}</p>
+                <div class="choices">
+                    {% for choice in quiz.choices %}
+                    <label>
+                        <input type="radio" name="{{ quiz.id }}" value="{{ choice }}" required> {{ choice }}
+                    </label><br>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit">次の質問へ</button>
+        </form>
+        {% if score %}
+        <p>スコア: {{ score }} / {{ total }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
